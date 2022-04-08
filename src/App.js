@@ -2,23 +2,15 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const [dices, setDices] = React.useState([])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <main>
+    <h1 className='title'>Tenzies</h1>
+    <h2 className='subtitle'>Roll untill all dice are same. Click each dice to freeze 
+    it at its current value between rolls</h2>
+    {dices}
+    <button className='roll'>Roll</button>
+  </main>
   );
 }
 
