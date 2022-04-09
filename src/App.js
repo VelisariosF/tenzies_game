@@ -4,7 +4,7 @@ import Dice from './Dice'
 
 
 export default function App() {
-  let msg = "Tenzies"
+  
   console.log("component rendered")
   const [dices, setDices] = React.useState(allNewDice())
   const [buttonState, setButtonState] = React.useState(false)
