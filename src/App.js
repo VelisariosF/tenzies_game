@@ -22,18 +22,20 @@ export default function App() {
   React.useEffect(function () {
     checkIfGameEnd()
   }, [dices])
+
+  
   function allNewDice() {
     const newDice = []
     for (let i = 0; i < 10; i++) {
 
-
+      console.log(i)
       newDice.push({
-        value: Math.floor(Math.random() * 6),
+        value: Math.floor(Math.random() * 6) + 1,
         selected: false,
         id: i,
 
       })
-
+  
 
 
     }
@@ -49,7 +51,7 @@ export default function App() {
         newDice.push(dices[i])
       } else {
         newDice.push({
-          value: Math.floor(Math.random() * 6),
+          value: Math.floor(Math.random() * 6) + 1,
           selected: false,
           id: i,
 
