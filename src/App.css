@@ -16,12 +16,18 @@ main{
 .border{
   width: 80%;
   height: 35%;
-
+ 
   display: grid;
   grid-template-columns: repeat(5, 80px);
   grid-template-rows: repeat(2, 80px);
   justify-content: space-around;
   align-content: space-around;
+}
+
+.win_msg{
+ 
+  position: absolute;
+  margin-left: 14.5%;
 }
 
 .title{

@@ -1,13 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react'
 import Dice from './Dice'
-import data from './data'
 
-function App() {
-  let msg ="Tenzies"
+
+export default function App() {
+  let msg = "Tenzies"
+  console.log("component rendered")
   const [dices, setDices] = React.useState(allNewDice())
-  const [buttonState, setButtonState] = React.useState('Roll')
+  const [buttonState, setButtonState] = React.useState(false)
   const diceElements = dices.map(dice => (
     <Dice
       key={dice.id}
@@ -18,6 +18,10 @@ function App() {
     />
   ))
 
+
+  React.useEffect(function () {
+    checkIfGameEnd()
+  }, [dices])
   function allNewDice() {
     const newDice = []
     for (let i = 0; i < 10; i++) {
@@ -58,37 +62,45 @@ function App() {
     return newDice
   }
 
-
   function rollDice() {
-    if (dices.length === 0 || checkIfGameEnd())
+    if (dices.length === 0 || buttonState) {
+      setButtonState(false)
       setDices(allNewDice())
-    else
+
+
+    } else {
       setDices(allNewDicesNotSelected())
+    }
+
   }
 
   function checkAllIfSame() {
-     let num = dices[0].value;
-     for(let i = 0; i < dices.length; i++){
-       if(dices[i].value != num){
-         return false
-       }
-     }
-     return true
+    let num = dices[0].value;
+    for (let i = 0; i < dices.length; i++) {
+      if (dices[i].value !== num) {
+        return false
+      }
+    }
+    return true
   }
 
   function checkIfAllSelected() {
-     for(let i = 0; i < dices.length; i++){
-       if(!dices[i].selected){
-         return false
-       }
-     }
-     return true
+    for (let i = 0; i < dices.length; i++) {
+      if (!dices[i].selected) {
+        return false
+      }
+    }
+    return true
   }
 
   function checkIfGameEnd() {
+
     if (checkIfAllSelected()) {
       if (checkAllIfSame()) {
-        setButtonState(prevButtonState => "roll again")
+
+        setButtonState(true)
+
+
         return true
       }
     }
@@ -97,17 +109,16 @@ function App() {
 
 
   function toggle(id) {
-    
+
     setDices(prevDices => prevDices.map(dice => {
-  
+
       return dice.id === id ?
         { ...dice, selected: !dice.selected } :
         dice
     })
     )
-   
-  }
 
+  }
 
 
 
@@ -118,12 +129,13 @@ function App() {
       <h2 className='subtitle'>Roll untill all dice are same. Click each dice to freeze
         it at its current value between rolls.</h2>
       <div className='border'>
-        {diceElements}
+        {buttonState ? <h1 className='win_msg'>You Won!</h1> : diceElements}
+
       </div>
 
-      <button onClick={rollDice}>{buttonState}</button>
+      <button onClick={rollDice}>{buttonState ? "New Game" : "Roll"}</button>
     </main>
   );
 }
 
-export default App;
+
